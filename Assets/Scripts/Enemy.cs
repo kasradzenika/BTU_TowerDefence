@@ -5,8 +5,9 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     public float health = 100f;
+    public int moneyReward = 50;
 
-	void Start ()
+    void Start ()
     {
         //get destination from the master
         //bad way:
@@ -23,14 +24,15 @@ public class Enemy : MonoBehaviour
     {
         health -= dmg;
 
-        if(health <= 0f)
+        if (health <= 0f)
         {
-            Destroy(gameObject);
+            Die();
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void Die()
     {
-        
+        ResourcesController.instance.Money += moneyReward;
+        Destroy(gameObject);
     }
 }
